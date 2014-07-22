@@ -1,0 +1,4 @@
+NppPlistPlugin
+==============
+
+Notepad++ bplist plugin
