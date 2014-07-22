@@ -1,0 +1,45 @@
+#define VERSION_MAJOR  0
+#define VERSION_MINOR  1
+#define VERSION_BUGFIX 0
+#define VERSION_BUILD  2
+#define VERSION_STRING "0, 1, 0, 2"
+
+
+VS_VERSION_INFO VERSIONINFO
+FILEVERSION VERSION_MAJOR, VERSION_MINOR, VERSION_BUGFIX, VERSION_BUILD
+PRODUCTVERSION VERSION_MAJOR, VERSION_MINOR, VERSION_BUGFIX, VERSION_BUILD
+FILEFLAGSMASK 0x37L
+#ifdef _DEBUG
+ FILEFLAGS 0x21L
+#else
+ FILEFLAGS 0x20L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x0L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "080904b0"
+      BEGIN
+            VALUE "Comments", "Source code at git://github.com/azerg/NppPlistPlugin.git"
+            VALUE "CompanyName", "Sergey.  azerg@lazzy.ws"
+            VALUE "FileDescription", "Bplist plugin for Notepad++.  A free (ALv2) Plugin for doing great things"
+            VALUE "FileVersion", VERSION_STRING
+            VALUE "InternalName", "NppPlistPlugin"
+            VALUE "LegalCopyright", "Copyright (C) 2014 azerg"
+            VALUE "OriginalFilename", "NppPlistPlugin.dll"
+            VALUE "ProductName", "Plist plugin"
+            VALUE "ProductVersion", "0, 0, 0, 2"
+#ifdef UNICODE
+            VALUE "SpecialBuild", "UNICODE"
+#else
+          VALUE "SpecialBuild", "ANSI"
+#endif
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x809, 1200
+    END
+END
