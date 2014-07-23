@@ -52,15 +52,15 @@ namespace plist
       plist_( nullptr )
     {
     }
-    ~GuardedPlist()
+    ~GuardedPlist() _NOEXCEPT
     {
       plist_free( plist_ );
     }
 
-    plist_t get() const { return plist_; }
-    plist_t* get_ptr(){ return &plist_; }
+    plist_t get() const _NOEXCEPT { return plist_; }
+    plist_t* get_ptr() _NOEXCEPT { return &plist_; }
 
-    operator plist_t(){ return this->get(); }
+    operator plist_t() _NOEXCEPT { return this->get(); }
 
   private:
     plist_t plist_;

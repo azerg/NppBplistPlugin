@@ -38,7 +38,7 @@ namespace plist
       GuardedPlist plist;
       plist_from_xml( xmlBuff_.data(), xmlBuff_.size(), plist.get_ptr() );
 
-      size_t cbBinXML;
+      size_t cbBinXML{};
       char* pBinXML{};
       plist_to_bin( plist, &pBinXML, &cbBinXML );
 

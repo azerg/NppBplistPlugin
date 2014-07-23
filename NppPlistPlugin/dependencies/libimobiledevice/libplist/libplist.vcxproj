@@ -115,13 +115,14 @@
       <WarningLevel>Level3</WarningLevel>
       <PrecompiledHeader>
       </PrecompiledHeader>
-      <Optimization>MaxSpeed</Optimization>
+      <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;__STDC_FORMAT_MACROS;plist_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(SolutionDir)\dependencies\libimobiledevice\vendors\libiconv\include;$(SolutionDir)\dependencies\libimobiledevice\vendors\libxml\src;$(SolutionDir)\dependencies\libimobiledevice\libcnary\include;$(ProjectDir)\include;$(SolutionDir)\dependencies\libimobiledevice\vendors\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <CompileAs>CompileAsCpp</CompileAs>
+      <DebugInformationFormat>None</DebugInformationFormat>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

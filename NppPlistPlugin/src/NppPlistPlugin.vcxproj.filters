@@ -24,6 +24,9 @@
     <ClCompile Include="PlistMngr.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="BplistMngr.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="menuCmdID.h">
@@ -45,6 +48,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="defines.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BplistMngr.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

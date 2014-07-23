@@ -43,7 +43,7 @@ const int nbFunc = 1;
 // Initialization of your plugin data
 // It will be called while plugin loading
 //
-void pluginInit(HANDLE hModule);
+BOOL pluginInit(HANDLE hModule);
 
 //
 // Cleaning of your plugin
@@ -70,7 +70,6 @@ bool setCommand(size_t index, TCHAR *cmdName, PFUNCPLUGINCMD pFunc, ShortcutKey 
 //
 // Your plugin command functions
 //
-void hello();
 void helloDlg();
 
 #endif //PLUGINDEFINITION_H

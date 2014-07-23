@@ -16,21 +16,11 @@
 //Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 #include "PluginDefinition.h"
-#include "defines.h"
-#include "PlistMngr.h"
-#include <memory>
-#include <algorithm>
-#include <unordered_map>
+#include "BplistMngr.h"
 
-typedef std::unique_ptr<plist::PlistEntry> PlistEntryPtr;
-#define MAKE_PLIST_PTR std::make_unique<plist::PlistEntry>
-
-// int (key) - BufferId 
-typedef std::unordered_map<int, PlistEntryPtr> PlistEntryPtrMap;
 
 extern FuncItem funcItem[nbFunc];
 extern NppData nppData;
-std::unique_ptr<PlistEntryPtrMap> g_pLoadedBplists;
 
 
 BOOL APIENTRY DllMain( HANDLE hModule, 
@@ -40,9 +30,7 @@ BOOL APIENTRY DllMain( HANDLE hModule,
     switch (reasonForCall)
     {
       case DLL_PROCESS_ATTACH:
-        pluginInit(hModule);
-        g_pLoadedBplists = std::make_unique<PlistEntryPtrMap>();
-        break;
+        return pluginInit(hModule);
 
       case DLL_PROCESS_DETACH:
         pluginCleanUp();
@@ -59,61 +47,15 @@ extern "C" __declspec(dllexport) void setInfo(NppData notpadPlusData)
 	commandMenuInit();
 }
 
-extern "C" __declspec(dllexport) const TCHAR * getName()
+extern "C" __declspec(dllexport) const TCHAR * getName() _NOEXCEPT
 {
 	return NPP_PLUGIN_NAME;
 }
 
-extern "C" __declspec(dllexport) FuncItem * getFuncsArray(int *nbF)
+extern "C" __declspec(dllexport) FuncItem * getFuncsArray( int *nbF ) _NOEXCEPT
 {
 	*nbF = nbFunc;
 	return funcItem;
-}
-
-bool IsValidBplist( CharVt& pFileBuff )
-{
-  if ( ( pFileBuff.size() > sizeof( defs::g_szHeader ) ) &&
-    std::equal( std::begin( defs::g_szHeader ), std::end( defs::g_szHeader ), 
-    pFileBuff.begin() )
-    )
-  {
-    return true;
-  }
-  
-  return false;
-}
-
-CharVt ReadFromSkintilla( HWND& hwndSkillaOut )
-{
-  int which = -1;
-  ::SendMessage( nppData._nppHandle, NPPM_GETCURRENTSCINTILLA, 0, (LPARAM)&which );
-  if ( which == -1 )
-    return CharVt();
-  HWND hCurrentEditView = (which == 0) ? nppData._scintillaMainHandle : nppData._scintillaSecondHandle;
-
-  int cbText = ::SendMessage( hCurrentEditView, SCI_GETLENGTH, NULL, NULL );
-
-  CharVt rawBuff( cbText + 1 );
-  ::SendMessage( hCurrentEditView, SCI_GETTEXT, rawBuff.size(), (LPARAM)rawBuff.data() );
-
-  // dummy trick to read cbText data from Skintlla:
-  // We ARE NOT ABLE to read exact N bytes because of tail 0
-  rawBuff.resize( cbText );
-
-  hwndSkillaOut = hCurrentEditView;
-
-  return std::move( rawBuff );
-}
-
-void InsertDataIntoSkilla( HWND hSkilla, const char* pData, size_t cbData )
-{
-  ::SendMessage( hSkilla, SCI_CLEARALL, NULL, NULL );
-  ::SendMessage( hSkilla, SCI_ADDTEXT, cbData, (LPARAM)pData );
-};
-
-void MarkDocumentIsUnmodified( HWND hSkilla )
-{
-  ::SendMessage( hSkilla, SCI_SETSAVEPOINT, NULL, NULL );
 }
 
 extern "C" __declspec(dllexport) void beNotified(SCNotification *notifyCode)
@@ -130,78 +72,22 @@ extern "C" __declspec(dllexport) void beNotified(SCNotification *notifyCode)
         break;
       case NPPN_BUFFERACTIVATED:
       {
-        auto loadedBplist = g_pLoadedBplists->find( notifyCode->nmhdr.idFrom );
-
-        if ( loadedBplist == g_pLoadedBplists->end() )
-        {
-          // Get the current scintilla
-
-          HWND hSkilla;
-          CharVt rawBuff = ReadFromSkintilla( hSkilla );
-
-          // not a bplist file
-          if ( !IsValidBplist( rawBuff ) )
-          {
-            break;
-          }
-
-          PlistEntryPtr plistEntry = MAKE_PLIST_PTR( std::move( rawBuff ) );
-
-          // get converted text to display
-          auto XMLVt = plistEntry->GetXML();
-          InsertDataIntoSkilla( hSkilla, XMLVt.data(), XMLVt.size() );
-
-          g_pLoadedBplists->insert( std::make_pair( notifyCode->nmhdr.idFrom, std::move( plistEntry ) ) );
-
-          MarkDocumentIsUnmodified( hSkilla );
-        }
+        plist::OnBufferActivated( notifyCode );
       }
         break;
       case NPPN_FILEBEFORESAVE:
       {
-        auto loadedBplist = g_pLoadedBplists->find( notifyCode->nmhdr.idFrom );
-
-        if ( loadedBplist != g_pLoadedBplists->end() )
-        {
-          // Read all content -> convert it back to Bplist and save
-          HWND hSkilla;
-          CharVt xmlPlistStr = ReadFromSkintilla( hSkilla );
-
-          loadedBplist->second->UpdateXML( std::move( xmlPlistStr ) );
-
-          auto binPlist = loadedBplist->second->GetBinPlist();
-          InsertDataIntoSkilla( hSkilla, binPlist.data(), binPlist.size() );
-        }
+        plist::OnFileBeforeSave(notifyCode);
       }
         break;
       case NPPN_FILESAVED:
       {
-        auto loadedBplist = g_pLoadedBplists->find( notifyCode->nmhdr.idFrom );
-
-        if ( loadedBplist != g_pLoadedBplists->end() )
-        {
-          // Get the current scintilla
-
-          HWND hSkilla;
-          CharVt rawBuff = ReadFromSkintilla( hSkilla );
-
-          // not a bplist file
-          if ( !IsValidBplist( rawBuff ) )
-          {
-            break;
-          }
-
-          loadedBplist->second->UpdateBPlist( std::move( rawBuff ) );
-
-          // get converted text to display
-          auto XMLVt = loadedBplist->second->GetXML();
-          InsertDataIntoSkilla( hSkilla, XMLVt.data(), XMLVt.size() );
-        }
+        plist::OnFileSaved( notifyCode );
       }
         break;
       case NPPN_FILECLOSED:
       {
-        g_pLoadedBplists->erase( notifyCode->nmhdr.idFrom );
+        plist::OnFileClosed( notifyCode );
       }
         break;
       default:
@@ -211,6 +97,10 @@ extern "C" __declspec(dllexport) void beNotified(SCNotification *notifyCode)
   catch ( std::bad_alloc& )
   {
     // ToDo: log err
+  }
+  catch ( std::runtime_error& err )
+  {
+    ::MessageBoxA( NULL, err.what(), "Notepad++ plist plugin error", MB_ICONERROR );
   }
 }
 

@@ -83,7 +83,7 @@
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Realeas|Win32'">
-    <OutDir>.\bin\</OutDir>
+    <OutDir>$(Configuration)\</OutDir>
     <IntDir>$(Configuration)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
@@ -154,13 +154,15 @@
       <PrecompiledHeader />
       <PrecompiledHeaderFile />
       <WarningLevel>Level3</WarningLevel>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DebugInformationFormat>None</DebugInformationFormat>
       <PreprocessorDefinitions>plist_STATIC;WIN32;_WINDOWS;_USRDLL;NPPPLUGINTEMPLATE_EXPORTS;__STDC_WANT_SECURE_LIB__=0;_CRT_NONSTDC_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <Optimization>Full</Optimization>
     </ClCompile>
     <Link>
       <AdditionalDependencies>Ws2_32.lib;shlwapi.lib;libplist.lib;libxml2.lib;libcnary.lib;libiconv.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -169,7 +171,7 @@
       <AdditionalLibraryDirectories>$(SolutionDir)\lib\Release\</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>call "$(SolutionDir)post-build push.cmd" Debug "$(TargetPath)" "$(TargetFileName)" "$(Configuration)" "$(TargetName)" "$(SolutionDir)"</Command>
+      <Command>call "$(SolutionDir)post-build push.cmd" Release "$(TargetPath)" "$(TargetFileName)" "$(Configuration)" "$(TargetName)" "$(SolutionDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">
@@ -198,11 +200,13 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BplistMngr.cpp" />
     <ClCompile Include="NppPluginDemo.cpp" />
     <ClCompile Include="PlistMngr.cpp" />
     <ClCompile Include="PluginDefinition.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BplistMngr.h" />
     <ClInclude Include="defines.h" />
     <ClInclude Include="menuCmdID.h" />
     <ClInclude Include="Notepad_plus_msgs.h" />

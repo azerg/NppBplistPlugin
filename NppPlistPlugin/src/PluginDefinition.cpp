@@ -17,6 +17,10 @@
 
 #include "PluginDefinition.h"
 #include "menuCmdID.h"
+#include "BplistMngr.h"
+
+#include <stdexcept>
+#include <memory>
 
 //
 // The plugin data that Notepad++ needs
@@ -31,22 +35,23 @@ NppData nppData;
 //
 // Initialize your plugin data here
 // It will be called while plugin loading   
-void pluginInit(HANDLE hModule)
+BOOL pluginInit( HANDLE hModule )
 {
-
+  return plist::InitPlugin();
 }
 
 //
 // Here you can do the clean up, save the parameters (if any) for the next session
 //
-void pluginCleanUp()
+void pluginCleanUp() _NOEXCEPT
 {
+  plist::FreePlugin();
 }
 
 //
 // Initialization of your plugin commands
 // You should fill your plugins commands here
-void commandMenuInit()
+void commandMenuInit() _NOEXCEPT
 {
 
     //--------------------------------------------//
@@ -77,7 +82,7 @@ void commandMenuCleanUp()
 //
 // This function help you to initialize your plugin commands
 //
-bool setCommand(size_t index, TCHAR *cmdName, PFUNCPLUGINCMD pFunc, ShortcutKey *sk, bool check0nInit) 
+bool setCommand( size_t index, TCHAR *cmdName, PFUNCPLUGINCMD pFunc, ShortcutKey *sk, bool check0nInit ) _NOEXCEPT
 {
     if (index >= nbFunc)
         return false;
@@ -96,7 +101,7 @@ bool setCommand(size_t index, TCHAR *cmdName, PFUNCPLUGINCMD pFunc, ShortcutKey 
 //----------------------------------------------//
 //-- STEP 4. DEFINE YOUR ASSOCIATED FUNCTIONS --//
 //----------------------------------------------//
-void helloDlg()
+void helloDlg() _NOEXCEPT
 {
-    ::MessageBox(NULL, TEXT("Hello from azerg!"), TEXT("Notepad++ bplist plugin"), MB_OK);
+    ::MessageBox(NULL, TEXT("This plugin supports only bplists. It will not work with usual plists."), TEXT("Notepad++ bplist plugin"), MB_OK);
 }
