@@ -35,7 +35,7 @@ NppData nppData;
 //
 // Initialize your plugin data here
 // It will be called while plugin loading   
-BOOL pluginInit( HANDLE hModule )
+BOOL pluginInit( HANDLE hModule ) _NOEXCEPT
 {
   return plist::InitPlugin();
 }

@@ -4,6 +4,7 @@
 
 #include <memory>
 #include <unordered_map>
+#include <assert.h>
 
 typedef std::unique_ptr<plist::PlistEntry> PlistEntryPtr;
 #define MAKE_PLIST_PTR std::make_unique<plist::PlistEntry>
@@ -26,7 +27,7 @@ std::unique_ptr<PlistEntryPtrMap> g_pLoadedBplists;
 namespace plist
 {
 
-  BOOL InitPlugin()
+  BOOL InitPlugin() _NOEXCEPT
   {
     try
     {
@@ -70,13 +71,13 @@ namespace plist
     return std::move( rawBuff );
   }
 
-  void InsertDataIntoSkilla( HWND hSkilla, const char* pData, size_t cbData )
+  void InsertDataIntoSkilla( HWND hSkilla, const char* pData, size_t cbData ) _NOEXCEPT
   {
     ::SendMessage( hSkilla, SCI_CLEARALL, NULL, NULL );
     ::SendMessage( hSkilla, SCI_ADDTEXT, cbData, (LPARAM)pData );
   }
 
-  void MarkDocumentIsUnmodified( HWND hSkilla )
+  void MarkDocumentIsUnmodified( HWND hSkilla ) _NOEXCEPT
   {
     //::SendMessage( hSkilla, SCI_SETSAVEPOINT, NULL, NULL );
   }
@@ -104,10 +105,10 @@ namespace plist
         return;
       }
 
-      PlistEntryPtr plistEntry = MAKE_PLIST_PTR( std::move( rawBuff ) );
+      PlistEntryPtr plistEntry = MAKE_PLIST_PTR();
 
       // get converted text to display
-      auto XMLVt = plistEntry->GetXML();
+      auto XMLVt = plistEntry->GetXML( std::move( rawBuff ) );
       InsertDataIntoSkilla( hSkilla, XMLVt.data(), XMLVt.size() );
 
       g_pLoadedBplists->insert( std::make_pair( notifyCode->nmhdr.idFrom, std::move( plistEntry ) ) );
@@ -116,14 +117,51 @@ namespace plist
     }
   }
 
+  //
+  // Move bplist back to Notepad++ window in orser to save buffer automatically.
+  // If, after user's changes, we are not able to convert xml to bplist,
+  // we should return original bplist buffer and notify user that conversion failed.
+  //
+  void OnFileBeforeSave( SCNotification *notifyCode )
+  {
+    auto loadedBplist = g_pLoadedBplists->find( notifyCode->nmhdr.idFrom );
+
+    HWND hSkilla;
+
+    try
+    {
+      if ( loadedBplist != g_pLoadedBplists->end() )
+      {
+        // Read all content -> convert it back to Bplist and save
+        CharVt xmlPlistStr = ReadFromSkintilla( hSkilla );
+
+        auto binPlist = loadedBplist->second->GetBinPlist( std::move(xmlPlistStr) );
+        InsertDataIntoSkilla( hSkilla, binPlist.data(), binPlist.size() );
+      }
+    }
+    catch ( std::runtime_error& err )
+    {
+      // Update Notepad++ window with previous-saved (good & valid) bplist buffer
+      assert( loadedBplist->second->GetContentType() != ContentType::xml );
+
+      auto binPlist = loadedBplist->second->GetBinPlist();
+      InsertDataIntoSkilla( hSkilla, binPlist.data(), binPlist.size() );
+      
+      throw;
+    }
+  }
+
+  //
+  // Raw bplist data was saved, so now lets return friendly xml plist data to notepad++
+  //
   void OnFileSaved( SCNotification *notifyCode )
   {
     auto loadedBplist = g_pLoadedBplists->find( notifyCode->nmhdr.idFrom );
 
-    if ( loadedBplist != g_pLoadedBplists->end() )
+    if ( loadedBplist != g_pLoadedBplists->end() &&
+         loadedBplist->second->GetContentType() != ContentType::corrupted ) // check that file was saved properly
     {
       // Get the current scintilla
-
       HWND hSkilla;
       CharVt rawBuff = ReadFromSkintilla( hSkilla );
 
@@ -133,30 +171,12 @@ namespace plist
         return;
       }
 
-      loadedBplist->second->UpdateBPlist( std::move( rawBuff ) );
-
       // get converted text to display
-      auto XMLVt = loadedBplist->second->GetXML();
+      auto XMLVt = loadedBplist->second->GetXML( std::move( rawBuff ) );
       InsertDataIntoSkilla( hSkilla, XMLVt.data(), XMLVt.size() );
     }
   }
 
-  void OnFileBeforeSave( SCNotification *notifyCode )
-  {
-    auto loadedBplist = g_pLoadedBplists->find( notifyCode->nmhdr.idFrom );
-
-    if ( loadedBplist != g_pLoadedBplists->end() )
-    {
-      // Read all content -> convert it back to Bplist and save
-      HWND hSkilla;
-      CharVt xmlPlistStr = ReadFromSkintilla( hSkilla );
-
-      loadedBplist->second->UpdateXML( std::move( xmlPlistStr ) );
-
-      auto binPlist = loadedBplist->second->GetBinPlist();
-      InsertDataIntoSkilla( hSkilla, binPlist.data(), binPlist.size() );
-    }
-  }
 
   void OnFileClosed( SCNotification *notifyCode )
   {

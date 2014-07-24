@@ -43,7 +43,7 @@ const int nbFunc = 1;
 // Initialization of your plugin data
 // It will be called while plugin loading
 //
-BOOL pluginInit(HANDLE hModule);
+BOOL pluginInit( HANDLE hModule );
 
 //
 // Cleaning of your plugin

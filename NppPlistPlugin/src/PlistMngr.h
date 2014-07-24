@@ -9,16 +9,16 @@ namespace plist
 {
   class GuardedPlist;
 
-  enum class ContentType { raw, xml };
+  enum class ContentType { raw, xml, corrupted };
 
   class PlistEntry
   {
   public:
-    PlistEntry( CharVt&& fileBuff ):
-      rawFileBuff_( fileBuff ),
-      contentType_{ ContentType::raw }
+    PlistEntry():
+      contentType_{ ContentType::corrupted }
     {}
 
+    /*
     // update Entry data with XML text in runtime
     void UpdateXML( CharVt&& xmlBuff )
     {
@@ -36,23 +36,35 @@ namespace plist
 
       contentType_ = ContentType::raw;
     }
+    */
 
-    const CharVt& GetXML();
-    const CharVt& GetBinPlist();
+    ContentType GetContentType() const _NOEXCEPT { return contentType_; }
+
+    const CharVt& GetXML( CharVt&& BplistBuff );
+    const CharVt& GetBinPlist( CharVt&& xmlBuff );
+    const CharVt& GetXML()
+    {
+      return GetXML( std::move( rawFileBuff_ ) );
+    };
+    const CharVt& GetBinPlist()
+    {
+      return GetBinPlist( std::move( xmlBuff_ ) );
+    };
   private:
     ContentType contentType_;
     CharVt rawFileBuff_;
     CharVt xmlBuff_;
   };
 
+
   class GuardedPlist
   {
   public:
     GuardedPlist():
-      plist_( nullptr )
+      plist_{ nullptr }
     {
     }
-    ~GuardedPlist() _NOEXCEPT
+    ~GuardedPlist()
     {
       plist_free( plist_ );
     }
