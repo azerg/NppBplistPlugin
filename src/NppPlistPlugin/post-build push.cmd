@@ -6,7 +6,7 @@ SET Configuration=%~4
 SET TargetName=%~5
 SET SolutionDir=%~6
 
-SET OutputBinFilePath="%SolutionDir%\..\bin\%Configuration%\*"
+SET OutputBinFilePath="%SolutionDir%\..\..\bin\%Configuration%\*"
 SET OutputPluginFilePath="C:\Program Files (x86)\Notepad++\plugins\%TargetName%_%ShortConfiguration%.dll"
 
 

@@ -1,8 +1,8 @@
-#define VERSION_MAJOR  0
-#define VERSION_MINOR  2
-#define VERSION_BUGFIX 0
-#define VERSION_BUILD  1
-#define VERSION_STRING "0, 2, 0, 1"
+#define VERSION_MAJOR  1
+#define VERSION_MINOR  0
+#define VERSION_BUGFIX 1
+#define VERSION_BUILD  2
+#define VERSION_STRING "1, 0, 1, 2"
 
 
 VS_VERSION_INFO VERSIONINFO
@@ -23,14 +23,14 @@ BEGIN
         BLOCK "080904b0"
       BEGIN
             VALUE "Comments", "Source code at git://github.com/azerg/NppPlistPlugin.git"
-            VALUE "CompanyName", "azerg.  azerg@lazzy.ws"
+            VALUE "CompanyName", "Sergiy Azarovskyy.  azerg@lazzy.ws"
             VALUE "FileDescription", "Bplist plugin for Notepad++.  A free (BSD New) Plugin for doing great things"
             VALUE "FileVersion", VERSION_STRING
             VALUE "InternalName", "NppPlistPlugin"
-            VALUE "LegalCopyright", "Copyright (C) 2014 azerg"
+            VALUE "LegalCopyright", "Copyright (C) 2014 Sergiy Azarovskyy"
             VALUE "OriginalFilename", "NppPlistPlugin.dll"
             VALUE "ProductName", "Plist plugin"
-            VALUE "ProductVersion", "0, 0, 0, 2"
+            VALUE "ProductVersion", VERSION_STRING
 #ifdef UNICODE
             VALUE "SpecialBuild", "UNICODE"
 #else
