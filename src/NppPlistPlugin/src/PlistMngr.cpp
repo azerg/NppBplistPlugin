@@ -49,6 +49,10 @@ namespace plist
       rawFileBuff_.assign( pBinXML, pBinXML + cbBinXML );
       free( pBinXML );
     }
+    else
+    {
+      rawFileBuff_.clear();
+    }
 
     if ( rawFileBuff_.empty() )
     {

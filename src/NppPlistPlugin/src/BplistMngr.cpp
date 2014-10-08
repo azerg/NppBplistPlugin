@@ -79,7 +79,7 @@ namespace plist
 
   void MarkDocumentIsUnmodified( HWND hSkilla ) _NOEXCEPT
   {
-    //::SendMessage( hSkilla, SCI_SETSAVEPOINT, NULL, NULL );
+    ::SendMessage( hSkilla, SCI_SETSAVEPOINT, NULL, NULL );
   }
 
   ///////////////////////////////////////////////////////////////////////////////
@@ -139,13 +139,16 @@ namespace plist
         InsertDataIntoSkilla( hSkilla, binPlist.data(), binPlist.size() );
       }
     }
-    catch ( std::runtime_error& err )
+    catch ( std::runtime_error& )
     {
       // Update Notepad++ window with previous-saved (good & valid) bplist buffer
       assert( loadedBplist->second->GetContentType() != ContentType::xml );
 
       auto binPlist = loadedBplist->second->GetBinPlist();
       InsertDataIntoSkilla( hSkilla, binPlist.data(), binPlist.size() );
+
+      // as long as we've restored xml to original state - lets mark it as "unchanged"
+      MarkDocumentIsUnmodified( hSkilla );
       
       throw;
     }
@@ -174,6 +177,8 @@ namespace plist
       // get converted text to display
       auto XMLVt = loadedBplist->second->GetXML( std::move( rawBuff ) );
       InsertDataIntoSkilla( hSkilla, XMLVt.data(), XMLVt.size() );
+
+      MarkDocumentIsUnmodified(hSkilla);
     }
   }
 

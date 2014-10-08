@@ -103,5 +103,5 @@ bool setCommand( size_t index, TCHAR *cmdName, PFUNCPLUGINCMD pFunc, ShortcutKey
 //----------------------------------------------//
 void helloDlg() _NOEXCEPT
 {
-    ::MessageBox(NULL, TEXT("This plugin supports only bplists. It will not work with usual plists."), TEXT("Notepad++ bplist plugin"), MB_OK);
+    ::MessageBox(NULL, TEXT("This plugin supports only bplists. It will not work with plists in text format."), TEXT("Notepad++ bplist plugin"), MB_OK);
 }
