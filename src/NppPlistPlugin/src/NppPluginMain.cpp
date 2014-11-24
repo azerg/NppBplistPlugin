@@ -17,7 +17,7 @@
 
 #include "PluginDefinition.h"
 #include "BplistMngr.h"
-
+#include <system_error>
 
 extern FuncItem funcItem[nbFunc];
 extern NppData nppData;
@@ -27,39 +27,46 @@ BOOL APIENTRY DllMain( HANDLE hModule,
                        DWORD  reasonForCall, 
                        LPVOID lpReserved ) _NOEXCEPT
 {
-    switch (reasonForCall)
-    {
-      case DLL_PROCESS_ATTACH:
-        return pluginInit(hModule);
+  switch (reasonForCall)
+  {
+    case DLL_PROCESS_ATTACH:
+      return pluginInit(hModule);
 
-      case DLL_PROCESS_DETACH:
-        pluginCleanUp();
-        break;
-    }
+    case DLL_PROCESS_DETACH:
+      pluginCleanUp();
+      break;
+  }
 
-    return TRUE;
+  return TRUE;
 }
 
 
 extern "C" __declspec(dllexport) void setInfo(NppData notpadPlusData)
 {
-	nppData = notpadPlusData;
-	commandMenuInit();
+  nppData = notpadPlusData;
+  commandMenuInit();
 }
 
 extern "C" __declspec(dllexport) const TCHAR * getName() _NOEXCEPT
 {
-	return NPP_PLUGIN_NAME;
+  return NPP_PLUGIN_NAME;
 }
 
 extern "C" __declspec(dllexport) FuncItem * getFuncsArray( int *nbF ) _NOEXCEPT
 {
-	*nbF = nbFunc;
-	return funcItem;
+  *nbF = nbFunc;
+  return funcItem;
 }
 
 extern "C" __declspec(dllexport) void beNotified(SCNotification *notifyCode)
 {
+  static bool fatalErrorOccurred{false};
+
+  if (fatalErrorOccurred)
+  {
+    return;
+  }
+
   try
   {
     switch ( notifyCode->nmhdr.code )
@@ -94,13 +101,18 @@ extern "C" __declspec(dllexport) void beNotified(SCNotification *notifyCode)
         return;
     }
   }
-  catch ( std::bad_alloc& )
+  catch (std::bad_alloc&)
   {
     // ToDo: log err
   }
-  catch ( std::runtime_error& err )
+  catch (std::system_error& err)
   {
-    ::MessageBoxA( NULL, err.what(), "Notepad++ plist plugin error", MB_ICONERROR );
+    fatalErrorOccurred = true;
+    ::MessageBoxA(NULL, err.what(), "Notepad++ plist plugin fatal error", MB_ICONERROR);
+  }
+  catch (std::runtime_error& err)
+  {
+    ::MessageBoxA(NULL, err.what(), "Notepad++ plist plugin error", MB_ICONERROR);
   }
 }
 
@@ -111,18 +123,13 @@ extern "C" __declspec(dllexport) void beNotified(SCNotification *notifyCode)
 // http://sourceforge.net/forum/forum.php?forum_id=482781
 //
 extern "C" __declspec(dllexport) LRESULT messageProc(UINT Message, WPARAM wParam, LPARAM lParam)
-{/*
-	if (Message == WM_MOVE)
-	{
-		::MessageBox(NULL, "move", "", MB_OK);
-	}
-*/
-	return TRUE;
+{
+  return TRUE;
 }
 
 #ifdef UNICODE
 extern "C" __declspec(dllexport) BOOL isUnicode()
 {
-    return TRUE;
+  return TRUE;
 }
 #endif //UNICODE

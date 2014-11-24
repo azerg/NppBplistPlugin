@@ -1,17 +1,25 @@
 #include "PlistMngr.h"
 #include <stdexcept>
+#include <system_error>
 
 
 namespace plist
 {
-
   //
   // If plist_from_bin will fail, xmlBuff_ will remain unchanged, pointing to PREVIOUS-SAVED xml buffer.
   //
-  const CharVt& PlistEntry::GetXML( CharVt&& BplistBuff )
+  const CharVt& PlistEntry::GetXML(CharVt&& BplistBuff)
   {
     GuardedPlist plist;
-    plist_from_bin( BplistBuff.data(), BplistBuff.size(), plist.get_ptr() );
+    try
+    {
+      plist_from_bin(BplistBuff.data(), BplistBuff.size(), plist.get_ptr());
+    }
+    catch (...)
+    {
+      // catch SEH exceptions (/withSEH)
+      throw std::system_error(std::error_code(EFAULT, std::generic_category()), "Invalid bplist file! Cant parse it");
+    }
 
     size_t cbXML{};
     char* pXML_{};
@@ -35,7 +43,7 @@ namespace plist
     return xmlBuff_;
   }
 
-  const CharVt& PlistEntry::GetBinPlist( CharVt&& xmlBuff )
+  const CharVt& PlistEntry::GetBinPlist(CharVt&& xmlBuff)
   {
     GuardedPlist plist;
     plist_from_xml( xmlBuff.data(), xmlBuff.size(), plist.get_ptr() );

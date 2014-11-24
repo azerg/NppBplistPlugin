@@ -65,6 +65,7 @@
       <PreprocessorDefinitions>plist_STATIC;WIN32;_WINDOWS;_USRDLL;NPPPLUGINTEMPLATE_EXPORTS;__STDC_WANT_SECURE_LIB__=0;_CRT_NONSTDC_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <Optimization>Full</Optimization>
+      <ExceptionHandling>Async</ExceptionHandling>
     </ClCompile>
     <Link>
       <AdditionalDependencies>Ws2_32.lib;shlwapi.lib;libplist.lib;libxml2.lib;libcnary.lib;libiconv.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -92,6 +93,7 @@
       <PrecompiledHeader />
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <ExceptionHandling>Async</ExceptionHandling>
     </ClCompile>
     <Link>
       <AdditionalDependencies>Ws2_32.lib;shlwapi.lib;libplist.lib;libxml2.lib;libcnary.lib;libiconv.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -108,7 +110,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BplistMngr.cpp" />
-    <ClCompile Include="NppPluginDemo.cpp" />
+    <ClCompile Include="NppPluginMain.cpp" />
     <ClCompile Include="PlistMngr.cpp" />
     <ClCompile Include="PluginDefinition.cpp" />
   </ItemGroup>
