@@ -19,8 +19,6 @@
 *.exe
 *.out
 *.app
-src/NppPlistPlugin/src/Unicode Debug/
-src/NppPlistPlugin/dependencies/libimobiledevice/vendors/libxml/Debug/
 *.sdf
 src/NppBplistPlugin/dependencies/libimobiledevice/libplist/Debug/
 src/NppBplistPlugin/dependencies/libimobiledevice/libcnary/Debug/
