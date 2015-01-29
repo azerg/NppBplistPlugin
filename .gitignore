@@ -22,3 +22,15 @@
 src/NppPlistPlugin/src/Unicode Debug/
 src/NppPlistPlugin/dependencies/libimobiledevice/vendors/libxml/Debug/
 *.sdf
+src/NppBplistPlugin/dependencies/libimobiledevice/libplist/Debug/
+src/NppBplistPlugin/dependencies/libimobiledevice/libcnary/Debug/
+src/NppBplistPlugin/dependencies/libimobiledevice/vendors/libxml/Debug/
+src/NppBplistPlugin/dependencies/libimobiledevice/vendors/libiconv/Debug/
+src/NppBplistPlugin/src/Unicode Release/
+src/NppBplistPlugin/src/Unicode Debug/
+src/NppBplistPlugin/dependencies/libimobiledevice/libcnary/Release/
+src/NppBplistPlugin/dependencies/libimobiledevice/vendors/libxml/Release/
+src/NppBplistPlugin/dependencies/libimobiledevice/libplist/Release/
+src/NppBplistPlugin/dependencies/libimobiledevice/vendors/libiconv/Release/
+src/NppBplistPlugin/NppBplistPlugin.opensdf
+src/NppBplistPlugin/src/NppBplistPlugin.vcxproj.user

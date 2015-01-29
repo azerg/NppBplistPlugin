@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Express 2013 for Windows Desktop
-VisualStudioVersion = 12.0.30501.0
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "libs", "libs", "{B445C695-7759-4127-94FE-A8C412F5948D}"
 EndProject
@@ -24,7 +24,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libiconv", "dependencies\li
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libxml2", "dependencies\libimobiledevice\vendors\libxml\libxml2.vcxproj", "{1D6039F6-5078-416F-A3AF-A36EFC7E6A1C}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NppPlistPlugin", "src\NppPlistPlugin.vcxproj", "{1590D7CD-7D3A-4AB7-A355-EE02F7FB987D}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NppBplistPlugin", "src\NppBplistPlugin.vcxproj", "{1590D7CD-7D3A-4AB7-A355-EE02F7FB987D}"
 	ProjectSection(ProjectDependencies) = postProject
 		{69CDCB06-C62E-45F6-9E2B-4313C228F957} = {69CDCB06-C62E-45F6-9E2B-4313C228F957}
 		{0788DB65-CD86-4A0D-A245-F29C0114373B} = {0788DB65-CD86-4A0D-A245-F29C0114373B}
