@@ -5,7 +5,7 @@
 
 typedef std::vector<char> CharVt;
 
-namespace plist
+namespace bplist
 {
   class GuardedPlist;
 
@@ -78,5 +78,5 @@ namespace plist
     plist_t plist_;
   };
 
-} // namespace plist
+} // namespace bplist
 

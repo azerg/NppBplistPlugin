@@ -4,7 +4,7 @@
 #include "PlistMngr.h"
 #include <Windows.h>
 
-namespace plist
+namespace bplist
 {
 
   BOOL InitPlugin();
@@ -28,7 +28,7 @@ namespace plist
     return ( pFileBuff.size() > sizeof( defs::g_szHeader ) ) &&
       std::equal( std::begin( defs::g_szHeader ), std::end( defs::g_szHeader ), pFileBuff.begin() );
   }
-} // namespace plist
+} // namespace bplist
 
 
 

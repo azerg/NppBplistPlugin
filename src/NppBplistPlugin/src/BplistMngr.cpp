@@ -6,8 +6,8 @@
 #include <unordered_map>
 #include <assert.h>
 
-typedef std::unique_ptr<plist::PlistEntry> PlistEntryPtr;
-#define MAKE_PLIST_PTR std::make_unique<plist::PlistEntry>
+typedef std::unique_ptr<bplist::PlistEntry> PlistEntryPtr;
+#define MAKE_PLIST_PTR std::make_unique<bplist::PlistEntry>
 
 //
 // int (key) - BufferId
@@ -24,7 +24,7 @@ extern NppData nppData;
 //
 std::unique_ptr<PlistEntryPtrMap> g_pLoadedBplists;
 
-namespace plist
+namespace bplist
 {
 
   BOOL InitPlugin() _NOEXCEPT
@@ -188,4 +188,4 @@ namespace plist
     g_pLoadedBplists->erase( notifyCode->nmhdr.idFrom );
   }
 
-} // namespace plist
+} // namespace bplist

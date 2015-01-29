@@ -3,7 +3,7 @@
 #include <system_error>
 
 
-namespace plist
+namespace bplist
 {
   //
   // If plist_from_bin will fail, xmlBuff_ will remain unchanged, pointing to PREVIOUS-SAVED xml buffer.
@@ -72,4 +72,4 @@ namespace plist
 
     return rawFileBuff_;
   }
-} // namespace plist
+} // namespace bplist

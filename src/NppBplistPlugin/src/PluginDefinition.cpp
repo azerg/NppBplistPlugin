@@ -37,7 +37,7 @@ NppData nppData;
 // It will be called while plugin loading   
 BOOL pluginInit( HANDLE hModule ) _NOEXCEPT
 {
-  return plist::InitPlugin();
+  return bplist::InitPlugin();
 }
 
 //
@@ -45,7 +45,7 @@ BOOL pluginInit( HANDLE hModule ) _NOEXCEPT
 //
 void pluginCleanUp() _NOEXCEPT
 {
-  plist::FreePlugin();
+  bplist::FreePlugin();
 }
 
 //

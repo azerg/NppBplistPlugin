@@ -79,22 +79,22 @@ extern "C" __declspec(dllexport) void beNotified(SCNotification *notifyCode)
         break;
       case NPPN_BUFFERACTIVATED:
       {
-        plist::OnBufferActivated( notifyCode );
+        bplist::OnBufferActivated(notifyCode);
       }
         break;
       case NPPN_FILEBEFORESAVE:
       {
-        plist::OnFileBeforeSave(notifyCode);
+        bplist::OnFileBeforeSave(notifyCode);
       }
         break;
       case NPPN_FILESAVED:
       {
-        plist::OnFileSaved( notifyCode );
+        bplist::OnFileSaved(notifyCode);
       }
         break;
       case NPPN_FILECLOSED:
       {
-        plist::OnFileClosed( notifyCode );
+        bplist::OnFileClosed(notifyCode);
       }
         break;
       default:
@@ -108,11 +108,11 @@ extern "C" __declspec(dllexport) void beNotified(SCNotification *notifyCode)
   catch (std::system_error& err)
   {
     fatalErrorOccurred = true;
-    ::MessageBoxA(NULL, err.what(), "Notepad++ plist plugin fatal error", MB_ICONERROR);
+    ::MessageBoxA(NULL, err.what(), "Notepad++ bplist plugin fatal error", MB_ICONERROR);
   }
   catch (std::runtime_error& err)
   {
-    ::MessageBoxA(NULL, err.what(), "Notepad++ plist plugin error", MB_ICONERROR);
+    ::MessageBoxA(NULL, err.what(), "Notepad++ bplist plugin error", MB_ICONERROR);
   }
 }
 
