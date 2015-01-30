@@ -1,10 +1,10 @@
 Notepad++ bplist plugin
 ==============
 
-NotepadPlistPlugin supports viewing\editing binary plist files. As long as ordinary plist files comes in XML format, this plugin dont supports them. It loads only binary plist files ( bplist ).
+NotepadBplistPlugin supports viewing\editing binary plist files. As long as ordinary plist files comes in XML format, this plugin dont supports them. It loads only binary plist files ( bplist ).
 
 #Installation
-- grab *bin/NppPlistPlugin.zip*
+- grab *bin/NppBplistPlugin.7z*
 - extract it to Notepad++ plugin's directory.
 - njoy
 
