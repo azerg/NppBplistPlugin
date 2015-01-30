@@ -18,7 +18,9 @@
 #include "PluginDefinition.h"
 #include "menuCmdID.h"
 #include "BplistMngr.h"
+#include "AboutWnd.h"
 
+#include <Windows.h>
 #include <stdexcept>
 #include <memory>
 
@@ -103,8 +105,8 @@ bool setCommand( size_t index, TCHAR *cmdName, PFUNCPLUGINCMD pFunc, ShortcutKey
 //----------------------------------------------//
 void helloDlg() _NOEXCEPT
 {
-    ::MessageBox(NULL
-    , TEXT("This plugin is used to read\\modify binary plist files.\nJust open plist file in notepad++ and save after editing.")
-    , TEXT("Notepad++ plist plugin")
-    , MB_OK);
+  ::MessageBox(NULL
+  , TEXT("This plugin is used to read\\modify binary plist files.\nJust open plist file in notepad++ and save after editing.")
+  , TEXT("Notepad++ plist plugin")
+  , MB_OK);
 }

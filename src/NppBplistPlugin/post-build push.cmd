@@ -1,13 +1,12 @@
 echo off
-SET ShortConfiguration=%~1
-SET TargetPath=%~2
-SET TargetFileName=%~3
-SET Configuration=%~4
-SET TargetName=%~5
-SET SolutionDir=%~6
+SET TargetPath=%~1
+SET TargetFileName=%~2
+SET Configuration=%~3
+SET TargetName=%~4
+SET SolutionDir=%~5
 
 SET OutputBinFilePath="%SolutionDir%\..\..\bin\%Configuration%\*"
-SET OutputPluginFilePath="C:\Program Files (x86)\Notepad++\plugins\%TargetName%_%ShortConfiguration%.dll"
+SET OutputPluginFilePath="C:\Program Files (x86)\Notepad++\plugins\%TargetName%.dll"
 
 
 

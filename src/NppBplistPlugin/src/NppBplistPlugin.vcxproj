@@ -77,9 +77,10 @@
       <ImportLibrary>$(OutDir)NppPluginTemplate.lib</ImportLibrary>
       <TargetMachine>MachineX86</TargetMachine>
       <AdditionalLibraryDirectories>$(SolutionDir)\lib\Release\</AdditionalLibraryDirectories>
+      <LinkStatus>true</LinkStatus>
     </Link>
     <PostBuildEvent>
-      <Command>call "$(SolutionDir)post-build push.cmd" Release "$(TargetPath)" "$(TargetFileName)" "$(Configuration)" "$(TargetName)" "$(SolutionDir)"</Command>
+      <Command>call "$(SolutionDir)post-build push.cmd" "$(TargetPath)" "$(TargetFileName)" "$(Configuration)" "$(TargetName)" "$(SolutionDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">
@@ -105,16 +106,18 @@
       <AdditionalLibraryDirectories>$(SolutionDir)\lib\Debug\</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>call "$(SolutionDir)post-build push.cmd" Debug "$(TargetPath)" "$(TargetFileName)" "$(Configuration)" "$(TargetName)" "$(SolutionDir)"</Command>
+      <Command>call "$(SolutionDir)post-build push.cmd" "$(TargetPath)" "$(TargetFileName)" "$(Configuration)" "$(TargetName)" "$(SolutionDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AboutWnd.cpp" />
     <ClCompile Include="BplistMngr.cpp" />
     <ClCompile Include="NppPluginMain.cpp" />
     <ClCompile Include="PlistMngr.cpp" />
     <ClCompile Include="PluginDefinition.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AboutWnd.h" />
     <ClInclude Include="BplistMngr.h" />
     <ClInclude Include="defines.h" />
     <ClInclude Include="menuCmdID.h" />
@@ -122,6 +125,7 @@
     <ClInclude Include="PlistMngr.h" />
     <ClInclude Include="PluginDefinition.h" />
     <ClInclude Include="PluginInterface.h" />
+    <ClInclude Include="Resource.h" />
     <ClInclude Include="Scintilla.h" />
   </ItemGroup>
   <ItemGroup>
