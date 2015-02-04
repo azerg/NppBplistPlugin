@@ -24,7 +24,7 @@ BEGIN
             VALUE "FileDescription", "Bplist plugin for Notepad++.  A free (BSD New) Plugin for doing great things"
             VALUE "FileVersion", VERSION_STRING
             VALUE "InternalName", "NppPlistPlugin"
-            VALUE "LegalCopyright", "Copyright (C) 2014 azerg"
+            VALUE "LegalCopyright", "Copyright (C) 2015 azerg"
             VALUE "OriginalFilename", "NppBplistPlugin.dll"
             VALUE "ProductName", "Bplist plugin"
             VALUE "ProductVersion", VERSION_STRING

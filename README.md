@@ -4,7 +4,7 @@ Notepad++ bplist plugin
 NotepadBplistPlugin supports viewing\editing binary plist files. As long as ordinary plist files comes in XML format, this plugin dont supports them. It loads only binary plist files ( bplist ).
 
 #Installation
-- grab *bin/NppBplistPlugin.7z*
+- grab *bin/NppBplistPlugin.zip*
 - extract it to Notepad++ plugin's directory.
 - njoy
 
@@ -14,5 +14,7 @@ Just open bplist file with notepad++. You are free to edit is as usual as long a
 
 #Dependencies
 [libimobiledevice]  - for libplist library
+[libxml2] - xml reader\writer
 
 [libimobiledevice]:http://www.libimobiledevice.org/
+[libxml2]:http://xmlsoft.org/

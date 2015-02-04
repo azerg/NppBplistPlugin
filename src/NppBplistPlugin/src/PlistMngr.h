@@ -18,26 +18,6 @@ namespace bplist
       contentType_{ ContentType::corrupted }
     {}
 
-    /*
-    // update Entry data with XML text in runtime
-    void UpdateXML( CharVt&& xmlBuff )
-    {
-      xmlBuff_ = xmlBuff;
-      rawFileBuff_.clear();
-
-      contentType_ = ContentType::xml;
-    }
-
-    // update binary data in runtime ( affected XML too )
-    void UpdateBPlist( CharVt&& BplistBuff )
-    {
-      rawFileBuff_ = BplistBuff;
-      xmlBuff_.clear();
-
-      contentType_ = ContentType::raw;
-    }
-    */
-
     ContentType GetContentType() const _NOEXCEPT { return contentType_; }
 
     const CharVt& GetXML( CharVt&& BplistBuff );
