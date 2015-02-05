@@ -13,8 +13,8 @@ Just open bplist file with notepad++. You are free to edit is as usual as long a
 
 
 #Dependencies
-[libimobiledevice]  - for libplist library
-[libxml2] - xml reader\writer
+- [libimobiledevice]  - for libplist library
+- [libxml2] - xml reader\writer
 
 [libimobiledevice]:http://www.libimobiledevice.org/
 [libxml2]:http://xmlsoft.org/
