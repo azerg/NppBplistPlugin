@@ -1,4 +1,4 @@
-Notepad++ bplist plugin
+Notepad++ bplist plugin [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/azerg/NppBplistPlugin?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 ==============
 >Check out plugin in Notepad++ plugin manager
 
