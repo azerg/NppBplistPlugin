@@ -42,7 +42,7 @@ namespace bplist
   }
 
   //
-  // We have to force calling destructor for global objects in DLL ( free manyally on DLL_UNLOAD )
+  // We have to force calling destructor for global objects in DLL ( free manually on DLL_UNLOAD )
   //
   void FreePlugin() _NOEXCEPT
   {
@@ -52,7 +52,7 @@ namespace bplist
   CharVt ReadFromSkintilla( HWND& hwndSkillaOut )
   {
     int which = -1;
-    ::SendMessage( nppData._nppHandle, NPPM_GETCURRENTSCINTILLA, 0, (LPARAM)&which );
+    ::SendMessage(nppData._nppHandle, NPPM_GETCURRENTSCINTILLA, 0, (LPARAM)&which );
     if ( which == -1 )
       return CharVt();
     HWND hCurrentEditView = (which == 0) ? nppData._scintillaMainHandle : nppData._scintillaSecondHandle;
@@ -68,7 +68,7 @@ namespace bplist
 
     hwndSkillaOut = hCurrentEditView;
 
-    return std::move( rawBuff );
+    return rawBuff;
   }
 
   void InsertDataIntoSkilla( HWND hSkilla, const char* pData, size_t cbData ) _NOEXCEPT
@@ -90,6 +90,17 @@ namespace bplist
 
   void OnBufferActivated( SCNotification *notifyCode )
   {
+    int which = -1;
+    ::SendMessage(nppData._nppHandle, NPPM_GETCURRENTSCINTILLA, 0, (LPARAM)&which);
+    if (which == -1)
+      return;
+    HWND hCurrentEditView = (which == 0) ? nppData._scintillaMainHandle : nppData._scintillaSecondHandle;
+
+
+
+
+    int cbText = ::SendMessage(hCurrentEditView, SCI_GETLENGTH, NULL, NULL);
+
     auto loadedBplist = g_pLoadedBplists->find( notifyCode->nmhdr.idFrom );
 
     if ( loadedBplist == g_pLoadedBplists->end() )

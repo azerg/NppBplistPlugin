@@ -18,6 +18,9 @@ namespace bplist
       contentType_{ ContentType::corrupted }
     {}
 
+    PlistEntry(const PlistEntry&) = delete;
+    PlistEntry& operator=(const PlistEntry&) = delete;
+
     ContentType GetContentType() const _NOEXCEPT { return contentType_; }
 
     const CharVt& GetXML( CharVt&& BplistBuff );
@@ -41,7 +44,7 @@ namespace bplist
   {
   public:
     GuardedPlist():
-      plist_{ nullptr }
+      plist_{}
     {
     }
     ~GuardedPlist()

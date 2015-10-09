@@ -33,3 +33,4 @@ src/NppBplistPlugin/dependencies/libimobiledevice/vendors/libiconv/Release/
 src/NppBplistPlugin/NppBplistPlugin.opensdf
 src/NppBplistPlugin/src/NppBplistPlugin.vcxproj.user
 src/NppBplistPlugin/NppBplistPlugin.v12.suo
+src/NppBplistPlugin/lib

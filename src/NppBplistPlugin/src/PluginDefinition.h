@@ -43,18 +43,18 @@ const int nbFunc = 1;
 // Initialization of your plugin data
 // It will be called while plugin loading
 //
-BOOL pluginInit( HANDLE hModule );
+BOOL pluginInit( HANDLE hModule ) _NOEXCEPT;
 
 //
 // Cleaning of your plugin
 // It will be called while plugin unloading
 //
-void pluginCleanUp();
+void pluginCleanUp() _NOEXCEPT;
 
 //
 //Initialization of your plugin commands
 //
-void commandMenuInit();
+void commandMenuInit() _NOEXCEPT;
 
 //
 //Clean up your plugin commands allocation (if any)
@@ -64,12 +64,12 @@ void commandMenuCleanUp();
 //
 // Function which sets your command 
 //
-bool setCommand(size_t index, TCHAR *cmdName, PFUNCPLUGINCMD pFunc, ShortcutKey *sk = NULL, bool check0nInit = false);
+bool setCommand(size_t index, TCHAR *cmdName, PFUNCPLUGINCMD pFunc, ShortcutKey *sk = NULL, bool check0nInit = false) _NOEXCEPT;
 
 
 //
 // Your plugin command functions
 //
-void helloDlg();
+void helloDlg() _NOEXCEPT;
 
 #endif //PLUGINDEFINITION_H

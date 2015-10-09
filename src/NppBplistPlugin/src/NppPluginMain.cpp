@@ -101,9 +101,9 @@ extern "C" __declspec(dllexport) void beNotified(SCNotification *notifyCode)
         return;
     }
   }
-  catch (std::bad_alloc&)
+  catch (std::bad_alloc& err)
   {
-    // ToDo: log err
+    ::MessageBoxA(NULL, err.what(), "Notepad++ bplist bad allocation", MB_ICONERROR);
   }
   catch (std::system_error& err)
   {
@@ -121,13 +121,13 @@ extern "C" __declspec(dllexport) void beNotified(SCNotification *notifyCode)
 // Please let me know if you need to access to some messages :
 // http://sourceforge.net/forum/forum.php?forum_id=482781
 //
-extern "C" __declspec(dllexport) LRESULT messageProc(UINT Message, WPARAM wParam, LPARAM lParam)
+extern "C" __declspec(dllexport) LRESULT messageProc(UINT Message, WPARAM wParam, LPARAM lParam) _NOEXCEPT
 {
   return TRUE;
 }
 
 #ifdef UNICODE
-extern "C" __declspec(dllexport) BOOL isUnicode()
+extern "C" __declspec(dllexport) BOOL isUnicode() _NOEXCEPT
 {
   return TRUE;
 }
