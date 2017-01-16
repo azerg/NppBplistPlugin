@@ -36,7 +36,7 @@ NppData nppData;
 
 //
 // Initialize your plugin data here
-// It will be called while plugin loading   
+// It will be called while plugin loading
 BOOL pluginInit( HANDLE hModule ) _NOEXCEPT
 {
   return bplist::InitPlugin();
@@ -69,7 +69,8 @@ void commandMenuInit() _NOEXCEPT
     //setCommand(0, TEXT("Hello Notepad++"), hello, NULL, false);
     //setCommand(1, TEXT("About"), helloDlg, NULL, false);
 
-    setCommand( 0, TEXT( "About" ), helloDlg, NULL, false );
+    setCommand( 0, TEXT("Is currently opened file a bplist file?"), IsItABplistFileHandler, NULL, true );
+    setCommand( 1, TEXT("About"), helloDlg, NULL, false);
 }
 
 //
@@ -77,7 +78,7 @@ void commandMenuInit() _NOEXCEPT
 //
 void commandMenuCleanUp()
 {
-	// Don't forget to deallocate your shortcut here
+  // Don't forget to deallocate your shortcut here
 }
 
 
@@ -106,7 +107,12 @@ bool setCommand( size_t index, TCHAR *cmdName, PFUNCPLUGINCMD pFunc, ShortcutKey
 void helloDlg() _NOEXCEPT
 {
   ::MessageBox(NULL
-  , TEXT("This plugin is used to read\\modify binary plist files.\nJust open plist file in notepad++ and save after editing.")
+  , TEXT("Just open bplist file with Notepad++ and use it as ordinary text file.")
   , TEXT("Notepad++ plist plugin")
   , MB_OK);
+}
+
+void IsItABplistFileHandler() _NOEXCEPT
+{
+  //setCommand(0, TEXT("Is it a bplist file?"), IsItABplistFile, NULL, false);
 }

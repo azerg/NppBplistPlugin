@@ -193,7 +193,6 @@ namespace bplist
     }
   }
 
-
   void OnFileClosed( SCNotification *notifyCode )
   {
     g_pLoadedBplists->erase( notifyCode->nmhdr.idFrom );
