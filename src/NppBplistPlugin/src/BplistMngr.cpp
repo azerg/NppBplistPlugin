@@ -12,7 +12,7 @@ typedef std::unique_ptr<bplist::PlistEntry> PlistEntryPtr;
 //
 // int (key) - BufferId
 //
-typedef std::unordered_map<int, PlistEntryPtr> PlistEntryPtrMap;
+typedef std::unordered_map<LRESULT, PlistEntryPtr> PlistEntryPtrMap;
 
 //---------------------------------------------------------------------------------
 
