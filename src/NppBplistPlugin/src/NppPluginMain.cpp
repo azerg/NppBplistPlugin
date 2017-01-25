@@ -71,31 +71,20 @@ extern "C" __declspec(dllexport) void beNotified(SCNotification *notifyCode)
   {
     switch ( notifyCode->nmhdr.code )
     {
-
       case NPPN_SHUTDOWN:
-      {
         commandMenuCleanUp();
-      }
         break;
       case NPPN_BUFFERACTIVATED:
-      {
         bplist::OnBufferActivated(notifyCode);
-      }
         break;
       case NPPN_FILEBEFORESAVE:
-      {
         bplist::OnFileBeforeSave(notifyCode);
-      }
         break;
       case NPPN_FILESAVED:
-      {
         bplist::OnFileSaved(notifyCode);
-      }
         break;
       case NPPN_FILECLOSED:
-      {
         bplist::OnFileClosed(notifyCode);
-      }
         break;
       default:
         return;

@@ -96,13 +96,9 @@ namespace bplist
       return;
     HWND hCurrentEditView = (which == 0) ? nppData._scintillaMainHandle : nppData._scintillaSecondHandle;
 
-
-
-
     int cbText = ::SendMessage(hCurrentEditView, SCI_GETLENGTH, NULL, NULL);
 
     auto loadedBplist = g_pLoadedBplists->find( notifyCode->nmhdr.idFrom );
-
     if ( loadedBplist == g_pLoadedBplists->end() )
     {
       // Get the current scintilla
@@ -193,10 +189,16 @@ namespace bplist
     }
   }
 
-
   void OnFileClosed( SCNotification *notifyCode )
   {
     g_pLoadedBplists->erase( notifyCode->nmhdr.idFrom );
+  }
+
+  bool IsCurrentFileIsABplistFile()
+  {
+    auto bufferId = ::SendMessage(nppData._nppHandle, NPPM_GETCURRENTBUFFERID, 0, 0);
+    auto loadedBplist = g_pLoadedBplists->find(bufferId);
+    return !(loadedBplist == g_pLoadedBplists->end());
   }
 
 } // namespace bplist
