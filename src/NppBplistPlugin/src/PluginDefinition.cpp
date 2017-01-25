@@ -69,8 +69,9 @@ void commandMenuInit() _NOEXCEPT
     //setCommand(0, TEXT("Hello Notepad++"), hello, NULL, false);
     //setCommand(1, TEXT("About"), helloDlg, NULL, false);
 
-    setCommand( 0, TEXT("Is currently opened file a bplist file?"), IsItABplistFileHandler, NULL, true );
-    setCommand( 1, TEXT("About"), helloDlg, NULL, false);
+    setCommand( 0, TEXT("Is currently opened file a bplist file?"), IsItABplistFileHandler, NULL, false );
+    setCommand( 1, TEXT("-"), nullptr, NULL, false);
+    setCommand( 2, TEXT("About"), helloDlg, NULL, false);
 }
 
 //
@@ -114,5 +115,11 @@ void helloDlg() _NOEXCEPT
 
 void IsItABplistFileHandler() _NOEXCEPT
 {
-  //setCommand(0, TEXT("Is it a bplist file?"), IsItABplistFile, NULL, false);
+  std::wstring msg =
+    bplist::IsCurrentFileIsABplistFile() ? L"Bplist file!" : L"NOT a Bplist file!";
+
+  ::MessageBox(NULL
+    , msg.c_str()
+    , TEXT("Notepad++ plist plugin")
+    , MB_OK);
 }

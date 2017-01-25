@@ -36,8 +36,7 @@ const TCHAR NPP_PLUGIN_NAME[] = TEXT("Notepad++ bplist plugin");
 //
 // Here define the number of your plugin commands
 //
-const int nbFunc = 2;
-
+const int nbFunc = 3;
 
 //
 // Initialization of your plugin data

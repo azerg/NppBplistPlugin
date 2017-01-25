@@ -6,12 +6,6 @@
 
 namespace bplist
 {
-  struct LoadedFileInfo
-  {
-    bool isBplist = false;
-  };
-
-
   BOOL InitPlugin() _NOEXCEPT;
   void FreePlugin() _NOEXCEPT;
   CharVt ReadFromSkintilla( HWND& hwndSkillaOut );
@@ -22,7 +16,8 @@ namespace bplist
   void OnFileBeforeSave( SCNotification *notifyCode );
   void OnFileSaved( SCNotification *notifyCode );
   void OnFileClosed( SCNotification *notifyCode );
-  LoadedFileInfo On
+
+  bool IsCurrentFileIsABplistFile();
 
   //---------------------------------------------------------------------------------------------
   //
