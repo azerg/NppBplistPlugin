@@ -125,7 +125,7 @@ namespace bplist
   }
 
   //
-  // Move bplist back to Notepad++ window in orser to save buffer automatically.
+  // Move bplist back to Notepad++ window in order to save buffer automatically.
   // If, after user's changes, we are not able to convert xml to bplist,
   // we should return original bplist buffer and notify user that conversion failed.
   //

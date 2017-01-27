@@ -77,19 +77,19 @@
     <OutDir>$(Configuration)\</OutDir>
     <IntDir>$(Configuration)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
+    <PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">
     <OutDir>$(Configuration)\</OutDir>
     <IntDir>$(Configuration)\</IntDir>
     <LinkIncremental>true</LinkIncremental>
-    <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">
     <ClCompile>
@@ -117,7 +117,8 @@
       <LinkStatus>true</LinkStatus>
     </Link>
     <PostBuildEvent>
-      <Command>call "$(SolutionDir)post-build push.cmd" "$(TargetPath)" "$(TargetFileName)" "$(Configuration)" "$(TargetName)" "$(SolutionDir)"</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">
@@ -147,7 +148,8 @@
       <LinkStatus>true</LinkStatus>
     </Link>
     <PostBuildEvent>
-      <Command>call "$(SolutionDir)post-build push.cmd" "$(TargetPath)" "$(TargetFileName)" "$(Configuration)" "$(TargetName)" "$(SolutionDir)"</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">
@@ -173,7 +175,8 @@
       <AdditionalLibraryDirectories>$(SolutionDir)\lib\Debug\</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>call "$(SolutionDir)post-build push.cmd" "$(TargetPath)" "$(TargetFileName)" "$(Configuration)" "$(TargetName)" "$(SolutionDir)"</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">
@@ -198,7 +201,8 @@
       <AdditionalLibraryDirectories>$(SolutionDir)\$(Platform)\Debug\</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>call "$(SolutionDir)post-build push.cmd" "$(TargetPath)" "$(TargetFileName)" "$(Configuration)" "$(TargetName)" "$(SolutionDir)"</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
