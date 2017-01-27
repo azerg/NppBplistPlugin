@@ -21,7 +21,7 @@ namespace bplist
       throw std::system_error(std::error_code(EFAULT, std::generic_category()), "Invalid bplist file! Cant parse it");
     }
 
-    size_t cbXML{};
+    uint32_t cbXML = 0;
     char* pXML_{};
     plist_to_xml( plist, &pXML_, &cbXML );
 
@@ -48,7 +48,7 @@ namespace bplist
     GuardedPlist plist;
     plist_from_xml( xmlBuff.data(), xmlBuff.size(), plist.get_ptr() );
 
-    size_t cbBinXML{};
+    uint32_t cbBinXML = 0;
     char* pBinXML{};
     plist_to_bin( plist, &pBinXML, &cbBinXML );
 
