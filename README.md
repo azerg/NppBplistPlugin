@@ -1,6 +1,7 @@
 Notepad++ bplist plugin 
 - [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/azerg/NppBplistPlugin?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 - [![GitHub release](https://img.shields.io/github/release/azerg/NppBplistPlugin.svg?style=flat)](https://github.com/azerg/NppBplistPlugin/releases)
+- [![Build status](https://ci.appveyor.com/api/projects/status/ox8kagplw7gvg092?svg=true)](https://ci.appveyor.com/project/azerg/nppbplistplugin)
 - [![License](http://img.shields.io/badge/license-NewBSD-brightgreen.svg?style=flat-squar)](http://opensource.org/licenses/BSD-3-Clause)
 
 ==============
