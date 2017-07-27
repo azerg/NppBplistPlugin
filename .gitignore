@@ -36,3 +36,4 @@ src/NppBplistPlugin/NppBplistPlugin.v12.suo
 src/NppBplistPlugin/lib
 .vs/
 src/NppBplistPlugin/NppBplistPlugin.VC.db
+*.tlog
