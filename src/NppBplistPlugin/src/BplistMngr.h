@@ -6,11 +6,10 @@
 
 namespace bplist
 {
-  BOOL InitPlugin() _NOEXCEPT;
-  void FreePlugin() _NOEXCEPT;
-  CharVt ReadFromSkintilla( HWND& hwndSkillaOut );
-  void InsertDataIntoSkilla( HWND hSkilla, const char* pData, size_t cbData ) _NOEXCEPT;
-  void MarkDocumentIsUnmodified( HWND hSkilla ) _NOEXCEPT;
+  BOOL InitPlugin() noexcept;
+  void FreePlugin() noexcept;
+  void InsertDataIntoSkilla( HWND hSkilla, const char* pData, size_t cbData ) noexcept;
+  void MarkDocumentIsUnmodified( HWND hSkilla ) noexcept;
 
   void OnBufferActivated( SCNotification *notifyCode );
   void OnFileBeforeSave( SCNotification *notifyCode );
@@ -18,17 +17,6 @@ namespace bplist
   void OnFileClosed( SCNotification *notifyCode );
 
   bool IsCurrentFileIsABplistFile();
-
-  //---------------------------------------------------------------------------------------------
-  //
-  // Few useful templates
-  //
-  template <typename T>
-  bool IsValidBplist( T pFileBuff )
-  {
-    return ( pFileBuff.size() > sizeof( defs::g_szHeader ) ) &&
-      std::equal( std::begin( defs::g_szHeader ), std::end( defs::g_szHeader ), pFileBuff.begin() );
-  }
 } // namespace bplist
 
 
