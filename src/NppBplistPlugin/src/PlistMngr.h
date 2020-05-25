@@ -21,7 +21,7 @@ namespace bplist
     PlistEntry(const PlistEntry&) = delete;
     PlistEntry& operator=(const PlistEntry&) = delete;
 
-    ContentType GetContentType() const _NOEXCEPT { return contentType_; }
+    ContentType GetContentType() const noexcept { return contentType_; }
 
     const CharVt& GetXML( CharVt&& BplistBuff );
     const CharVt& GetBinPlist( CharVt&& xmlBuff );
@@ -52,10 +52,10 @@ namespace bplist
       plist_free( plist_ );
     }
 
-    plist_t get() const _NOEXCEPT { return plist_; }
-    plist_t* get_ptr() _NOEXCEPT { return &plist_; }
+    plist_t get() const noexcept { return plist_; }
+    plist_t* get_ptr() noexcept { return &plist_; }
 
-    operator plist_t() _NOEXCEPT { return this->get(); }
+    operator plist_t() noexcept { return this->get(); }
 
   private:
     plist_t plist_;

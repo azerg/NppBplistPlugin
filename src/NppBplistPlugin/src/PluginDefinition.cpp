@@ -37,7 +37,7 @@ NppData nppData;
 //
 // Initialize your plugin data here
 // It will be called while plugin loading
-BOOL pluginInit( HANDLE hModule ) _NOEXCEPT
+BOOL pluginInit( HANDLE hModule ) noexcept
 {
   return bplist::InitPlugin();
 }
@@ -45,7 +45,7 @@ BOOL pluginInit( HANDLE hModule ) _NOEXCEPT
 //
 // Here you can do the clean up, save the parameters (if any) for the next session
 //
-void pluginCleanUp() _NOEXCEPT
+void pluginCleanUp() noexcept
 {
   bplist::FreePlugin();
 }
@@ -53,7 +53,7 @@ void pluginCleanUp() _NOEXCEPT
 //
 // Initialization of your plugin commands
 // You should fill your plugins commands here
-void commandMenuInit() _NOEXCEPT
+void commandMenuInit() noexcept
 {
 
     //--------------------------------------------//
@@ -86,7 +86,7 @@ void commandMenuCleanUp()
 //
 // This function help you to initialize your plugin commands
 //
-bool setCommand( size_t index, TCHAR *cmdName, PFUNCPLUGINCMD pFunc, ShortcutKey *sk, bool check0nInit ) _NOEXCEPT
+bool setCommand( size_t index, TCHAR *cmdName, PFUNCPLUGINCMD pFunc, ShortcutKey *sk, bool check0nInit ) noexcept
 {
     if (index >= nbFunc)
         return false;
@@ -105,7 +105,7 @@ bool setCommand( size_t index, TCHAR *cmdName, PFUNCPLUGINCMD pFunc, ShortcutKey
 //----------------------------------------------//
 //-- STEP 4. DEFINE YOUR ASSOCIATED FUNCTIONS --//
 //----------------------------------------------//
-void helloDlg() _NOEXCEPT
+void helloDlg() noexcept
 {
   ::MessageBox(NULL
   , TEXT("Just open bplist file with Notepad++ and use it as ordinary text file.")
@@ -113,7 +113,7 @@ void helloDlg() _NOEXCEPT
   , MB_OK);
 }
 
-void IsItABplistFileHandler() _NOEXCEPT
+void IsItABplistFileHandler() noexcept
 {
   std::wstring msg =
     bplist::IsCurrentFileIsABplistFile() ? L"Bplist file!" : L"NOT a Bplist file!";

@@ -25,7 +25,7 @@ extern NppData nppData;
 
 BOOL APIENTRY DllMain( HANDLE hModule, 
                        DWORD  reasonForCall, 
-                       LPVOID lpReserved ) _NOEXCEPT
+                       LPVOID lpReserved ) noexcept
 {
   switch (reasonForCall)
   {
@@ -47,12 +47,12 @@ extern "C" __declspec(dllexport) void setInfo(NppData notpadPlusData)
   commandMenuInit();
 }
 
-extern "C" __declspec(dllexport) const TCHAR * getName() _NOEXCEPT
+extern "C" __declspec(dllexport) const TCHAR * getName() noexcept
 {
   return NPP_PLUGIN_NAME;
 }
 
-extern "C" __declspec(dllexport) FuncItem * getFuncsArray( int *nbF ) _NOEXCEPT
+extern "C" __declspec(dllexport) FuncItem * getFuncsArray( int *nbF ) noexcept
 {
   *nbF = nbFunc;
   return funcItem;
@@ -110,13 +110,13 @@ extern "C" __declspec(dllexport) void beNotified(SCNotification *notifyCode)
 // Please let me know if you need to access to some messages :
 // http://sourceforge.net/forum/forum.php?forum_id=482781
 //
-extern "C" __declspec(dllexport) LRESULT messageProc(UINT Message, WPARAM wParam, LPARAM lParam) _NOEXCEPT
+extern "C" __declspec(dllexport) LRESULT messageProc(UINT Message, WPARAM wParam, LPARAM lParam) noexcept
 {
   return TRUE;
 }
 
 #ifdef UNICODE
-extern "C" __declspec(dllexport) BOOL isUnicode() _NOEXCEPT
+extern "C" __declspec(dllexport) BOOL isUnicode() noexcept
 {
   return TRUE;
 }
