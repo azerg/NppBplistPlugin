@@ -1,0 +1,38 @@
+name: CI_build
+
+on: [push, pull_request]
+
+jobs:
+  build:
+
+    runs-on: windows-2019
+    strategy:
+      max-parallel: 4
+      matrix:
+        build_configuration: [Unicode Release, Unicode Debug]
+        build_platform: [x64, Win32]
+        
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v1
+
+    - name: Setup to add MSBuild.exe to path
+      uses: warrenbuckley/Setup-MSBuild@v1
+
+    - name: MSBuild of plugin dll
+      working-directory: src\NppBplistPlugin\
+      run: msbuild NppBplistPlugin.sln /m /p:configuration="${{ matrix.build_configuration }}" /p:platform="${{ matrix.build_platform }}" /p:PlatformToolset="v142"
+
+    - name: Archive artifacts for x64
+      if: matrix.build_platform == 'x64'
+      uses: actions/upload-artifact@v1
+      with:
+          name: plugin_dll_x64
+          path: src\NppBplistPlugin\${{ matrix.build_platform }}\${{ matrix.build_configuration }}\NppBplistPlugin.dll
+
+    - name: Archive artifacts for Win32
+      if: matrix.build_platform == 'Win32'
+      uses: actions/upload-artifact@v1
+      with:
+          name: plugin_dll_x86
+          path: src\NppBplistPlugin\src\${{ matrix.build_configuration }}\NppBplistPlugin.dll
