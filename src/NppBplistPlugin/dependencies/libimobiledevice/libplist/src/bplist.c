@@ -310,7 +310,7 @@ static plist_t parse_date_node(char *bnode, uint8_t size)
     plist_data_t data = plist_get_data(node);
 
     double time_real = data->realval;
-    data->timeval.tv_sec = (long) time_real;
+    data->timeval.tv_sec = (long) time_real + 978307200;
     data->timeval.tv_usec = (time_real - (long) time_real) * 1000000;
     data->type = PLIST_DATE;
     data->length = sizeof(timeval_t);
