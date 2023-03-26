@@ -1,0 +1,7 @@
+{
+  "name": "nppbplistplugin",
+  "version-string": "0.1.0",
+  "dependencies": [
+    "libplist"
+  ]
+}

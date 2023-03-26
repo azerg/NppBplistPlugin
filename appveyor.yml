@@ -1,34 +1,43 @@
 version: 1.3.0.{build}
-image: Visual Studio 2019
+image: Visual Studio 2022
 
 
 environment:
   matrix:
-  - PlatformToolset: v142
+  - PlatformToolset: v143
 
 platform:
     - x64
     - Win32
 
 configuration:
-    - Unicode Release
-    - Unicode Debug
+    - RelWithDebInfo
 
 install:
+    - cd C:\Tools\vcpkg
+    - git pull
+    - .\bootstrap-vcpkg.bat
+    - cd %APPVEYOR_BUILD_FOLDER%
+
     - if "%platform%"=="x64" set archi=amd64
     - if "%platform%"=="x64" set platform_input=x64
+    - if "%platform%"=="x64" set vcpkg_triplet_arch=x64
 
     - if "%platform%"=="Win32" set archi=x86
     - if "%platform%"=="Win32" set platform_input=Win32
+    - if "%platform%"=="Win32" set vcpkg_triplet_arch=x86
 
-    - call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvarsall.bat" %archi%
+    - call "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvarsall.bat" %archi%
 
 build_script:
-    - cd "%APPVEYOR_BUILD_FOLDER%"/src/NppBplistPlugin/
-    - msbuild NppBplistPlugin.sln /m /p:configuration="%configuration%" /p:platform="%platform_input%" /p:PlatformToolset="%PlatformToolset%"
+    - echo %vcpkg_triplet_arch%
+    - cmake . -B"build" -G "Visual Studio 17 2022" -A %platform% -DCMAKE_TOOLCHAIN_FILE=C:\Tools\vcpkg\scripts\buildsystems\vcpkg.cmake -DVCPKG_TARGET_TRIPLET=%vcpkg_triplet_arch%-windows-static -DVCPKG_OVERLAY_TRIPLETS=./vcpkg/triplets
+    - cmake --build "build" --config RelWithDebInfo
 
 after_build:
-    - cd "%APPVEYOR_BUILD_FOLDER%"/src/NppBplistPlugin/
+    - cd "%APPVEYOR_BUILD_FOLDER%"/bin
+    - dir RelWithDebInfo
+    - dir $env:PLATFORM_INPUT\$env:CONFIGURATION\
     - ps: >-
 
         if ($env:PLATFORM_INPUT -eq "x64") {
@@ -39,7 +48,7 @@ after_build:
             #Push-AppveyorArtifact "src\$env:CONFIGURATION\NppBplistPlugin.dll" -FileName NppBplistPlugin.dll
         }
 
-        if ($($env:APPVEYOR_REPO_TAG) -eq "true" -and $env:CONFIGURATION -eq "Release" -and $env:PLATFORMTOOLSET -eq "v142") {
+        if ($($env:APPVEYOR_REPO_TAG) -eq "true" -and $env:PLATFORMTOOLSET -eq "%PlatformToolset%") {
             if($env:PLATFORM_INPUT -eq "x64"){
             $ZipFileName = "NppBplistPlugin_$($env:APPVEYOR_REPO_TAG_NAME)_x64.zip"
             7z a $ZipFileName $env:PLATFORM_INPUT\$env:CONFIGURATION\NppBplistPlugin.dll
@@ -64,5 +73,5 @@ deploy:
     force_update: true
     on:
         appveyor_repo_tag: true
-        PlatformToolset: v142
+        PlatformToolset: v143
         configuration: Release

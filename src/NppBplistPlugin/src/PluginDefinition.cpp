@@ -86,7 +86,7 @@ void commandMenuCleanUp()
 //
 // This function help you to initialize your plugin commands
 //
-bool setCommand( size_t index, TCHAR *cmdName, PFUNCPLUGINCMD pFunc, ShortcutKey *sk, bool check0nInit ) noexcept
+bool setCommand( size_t index, const TCHAR *cmdName, PFUNCPLUGINCMD pFunc, ShortcutKey *sk, bool check0nInit ) noexcept
 {
     if (index >= nbFunc)
         return false;
@@ -118,8 +118,8 @@ void IsItABplistFileHandler() noexcept
   std::wstring msg =
     bplist::IsCurrentFileIsABplistFile() ? L"Bplist file!" : L"NOT a Bplist file!";
 
-  ::MessageBox(NULL
+  ::MessageBoxW(NULL
     , msg.c_str()
-    , TEXT("Notepad++ plist plugin")
+    , L"Notepad++ plist plugin"
     , MB_OK);
 }

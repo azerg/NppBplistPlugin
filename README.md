@@ -12,12 +12,10 @@ NotepadBplistPlugin supports viewing\editing binary plist files. As long as ordi
 - Use Notepad++ plugin manager to manage binary plist plugin
 
 #How it works
-Just open bplist file with notepad++. You are free to edit is as usual as long as you will do it in a valid XML way. You could type an invalid XML code - in this case when you will try to save bplist, plugin will be not able to conver invalid XML to bplist and will restore original bplist data ( before your modifications )
+Simply open bplist file with notepad++. You are free to edit is as usual as long as you will do it in a valid XML way. You could type an invalid XML code - in this case when you will try to save bplist, plugin will be not able to conver invalid XML to bplist and will restore original bplist data ( before your modifications )
 
 
 #Dependencies
-- [libimobiledevice]  - for libplist library
-- [libxml2] - xml reader\writer
+- [libplist]  - 1.3.6
 
-[libimobiledevice]:http://www.libimobiledevice.org/
-[libxml2]:http://xmlsoft.org/
+[libplist]:https://github.com/libimobiledevice/libplist

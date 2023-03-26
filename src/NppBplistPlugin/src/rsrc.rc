@@ -20,11 +20,11 @@ BEGIN
         BLOCK "080904b0"
       BEGIN
             VALUE "Comments", "Source code at https://github.com/azerg/NppBplistPlugin.git"
-            VALUE "CompanyName", "azerg.  pub@azerg.com"
-            VALUE "FileDescription", "Bplist plugin for Notepad++.  A free (BSD New) Plugin for doing great things"
+            VALUE "CompanyName", "Sergiy Azarovsky. pub@azerg.com"
+            VALUE "FileDescription", "Binary plist (bplist) plugin for Notepad++.  A free (BSD New) Plugin for doing great things"
             VALUE "FileVersion", VERSION_STRING
             VALUE "InternalName", "NppPlistPlugin"
-            VALUE "LegalCopyright", "Copyright (C) 2015 azerg"
+            VALUE "LegalCopyright", "Copyright (C) 2022 Sergiy Azarovsky"
             VALUE "OriginalFilename", "NppBplistPlugin.dll"
             VALUE "ProductName", "Bplist plugin"
             VALUE "ProductVersion", VERSION_STRING
