@@ -5,34 +5,46 @@ on: [push, pull_request]
 jobs:
   build:
 
-    runs-on: windows-2019
+    runs-on: windows-latest
     strategy:
-      max-parallel: 4
+      fail-fast: false
       matrix:
-        build_configuration: [Unicode Release, Unicode Debug]
-        build_platform: [x64, Win32]
-        
+        include:
+          - build_configuration: RelWithDebInfo
+            build_platform: x64
+            build_platform_vcpkg: x64
+          - build_configuration: Debug
+            build_platform: x64
+            build_platform_vcpkg: x64
+          - build_configuration: RelWithDebInfo
+            build_platform: Win32
+            build_platform_vcpkg: x86
+          - build_configuration: Debug
+            build_platform: Win32
+            build_platform_vcpkg: x86
+
     steps:
     - name: Checkout repo
-      uses: actions/checkout@v1
+      uses: actions/checkout@v3
 
-    - name: Setup to add MSBuild.exe to path
-      uses: warrenbuckley/Setup-MSBuild@v1
+    - name: Restore vcpkg packages
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      run: vcpkg integrate install
 
-    - name: MSBuild of plugin dll
-      working-directory: src\NppBplistPlugin\
-      run: msbuild NppBplistPlugin.sln /m /p:configuration="${{ matrix.build_configuration }}" /p:platform="${{ matrix.build_platform }}" /p:PlatformToolset="v142"
+    - name: generate cmake
+      run: |
+           mkdir _build
+           cd _build
+           cmake -G "Visual Studio 17 2022" -A ${{ matrix.build_platform }} -DCMAKE_TOOLCHAIN_FILE=C:/vcpkg/scripts/buildsystems/vcpkg.cmake -DVCPKG_TARGET_TRIPLET=${{ matrix.build_platform_vcpkg }}-windows-static ..
 
-    - name: Archive artifacts for x64
-      if: matrix.build_platform == 'x64'
-      uses: actions/upload-artifact@v1
+    - name: build cmake
+      run: |
+           cd _build
+           cmake --build . --config ${{ matrix.build_configuration }}
+
+    - name: Archive artifacts for ${{ matrix.build_platform }}
+      if: matrix.build_configuration == 'RelWithDebInfo'
+      uses: actions/upload-artifact@v3
       with:
-          name: plugin_dll_x64
-          path: src\NppBplistPlugin\${{ matrix.build_platform }}\${{ matrix.build_configuration }}\NppBplistPlugin.dll
-
-    - name: Archive artifacts for Win32
-      if: matrix.build_platform == 'Win32'
-      uses: actions/upload-artifact@v1
-      with:
-          name: plugin_dll_x86
-          path: src\NppBplistPlugin\src\${{ matrix.build_configuration }}\NppBplistPlugin.dll
+          name: plugin_dll_${{ matrix.build_platform }}
+          path: bin\${{ matrix.build_configuration }}\NppBplistPlugin.dll
