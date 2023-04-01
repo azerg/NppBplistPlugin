@@ -1,4 +1,4 @@
-version: 1.3.0.{build}
+version: 2.0.0.{build}
 image: Visual Studio 2022
 
 
@@ -31,31 +31,29 @@ install:
 
 build_script:
     - echo %vcpkg_triplet_arch%
-    - cmake . -B"build" -G "Visual Studio 17 2022" -A %platform% -DCMAKE_TOOLCHAIN_FILE=C:\Tools\vcpkg\scripts\buildsystems\vcpkg.cmake -DVCPKG_TARGET_TRIPLET=%vcpkg_triplet_arch%-windows-static -DVCPKG_OVERLAY_TRIPLETS=./vcpkg/triplets
+    - cmake . -B"build" -G "Visual Studio 17 2022" -A %platform_input% -DCMAKE_TOOLCHAIN_FILE=C:\Tools\vcpkg\scripts\buildsystems\vcpkg.cmake -DVCPKG_TARGET_TRIPLET=%vcpkg_triplet_arch%-windows-static -DVCPKG_OVERLAY_TRIPLETS=./vcpkg/triplets
     - cmake --build "build" --config RelWithDebInfo
 
 after_build:
-    - cd "%APPVEYOR_BUILD_FOLDER%"/bin
-    - dir RelWithDebInfo
-    - dir $env:PLATFORM_INPUT\$env:CONFIGURATION\
+    - cd "%APPVEYOR_BUILD_FOLDER%"
     - ps: >-
 
         if ($env:PLATFORM_INPUT -eq "x64") {
-            #Push-AppveyorArtifact "$env:PLATFORM_INPUT\$env:CONFIGURATION\NppBplistPlugin.dll" -FileName NppBplistPlugin.dll
+            Push-AppveyorArtifact "bin\$env:CONFIGURATION\NppBplistPlugin.dll" -FileName NppBplistPlugin.dll
         }
 
         if ($env:PLATFORM_INPUT -eq "Win32" ) {
-            #Push-AppveyorArtifact "src\$env:CONFIGURATION\NppBplistPlugin.dll" -FileName NppBplistPlugin.dll
+            Push-AppveyorArtifact "bin\$env:CONFIGURATION\NppBplistPlugin.dll" -FileName NppBplistPlugin.dll
         }
 
         if ($($env:APPVEYOR_REPO_TAG) -eq "true" -and $env:PLATFORMTOOLSET -eq "%PlatformToolset%") {
             if($env:PLATFORM_INPUT -eq "x64"){
-            $ZipFileName = "NppBplistPlugin_$($env:APPVEYOR_REPO_TAG_NAME)_x64.zip"
-            7z a $ZipFileName $env:PLATFORM_INPUT\$env:CONFIGURATION\NppBplistPlugin.dll
+                $ZipFileName = "NppBplistPlugin_$($env:APPVEYOR_REPO_TAG_NAME)_x64.zip"
+                7z a $ZipFileName bin\$env:CONFIGURATION\NppBplistPlugin.dll
             }
             if($env:PLATFORM_INPUT -eq "Win32"){
-            $ZipFileName = "NppBplistPlugin_$($env:APPVEYOR_REPO_TAG_NAME)_x86.zip"
-            7z a $ZipFileName src\$env:CONFIGURATION\NppBplistPlugin.dll
+                $ZipFileName = "NppBplistPlugin_$($env:APPVEYOR_REPO_TAG_NAME)_x86.zip"
+                7z a $ZipFileName bin\$env:CONFIGURATION\NppBplistPlugin.dll
             }
         }
 
