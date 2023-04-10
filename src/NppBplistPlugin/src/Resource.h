@@ -1,7 +1,7 @@
 #define VERSION_MAJOR  2
 #define VERSION_MINOR  0
 #define VERSION_BUGFIX 0
-#define VERSION_BUILD  0
-#define VERSION_STRING "2, 0, 0, 0"
+#define VERSION_BUILD  3
+#define VERSION_STRING "2, 0, 0, 3"
 
 #define IDD_DLG_ABOUT 1000
