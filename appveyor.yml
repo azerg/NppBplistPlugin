@@ -9,6 +9,7 @@ environment:
 platform:
     - x64
     - Win32
+    - ARM64
 
 configuration:
     - RelWithDebInfo
@@ -26,6 +27,10 @@ install:
     - if "%platform%"=="Win32" set archi=x86
     - if "%platform%"=="Win32" set platform_input=Win32
     - if "%platform%"=="Win32" set vcpkg_triplet_arch=x86
+    
+    - if "%platform%"=="ARM64" set archi=x64
+    - if "%platform%"=="ARM64" set platform_input=ARM
+    - if "%platform%"=="ARM64" set vcpkg_triplet_arch=arm64
 
     - call "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvarsall.bat" %archi%
 
@@ -45,6 +50,10 @@ after_build:
         if ($env:PLATFORM_INPUT -eq "Win32" ) {
             Push-AppveyorArtifact "bin\$env:CONFIGURATION\NppBplistPlugin.dll" -FileName NppBplistPlugin.dll
         }
+        
+        if ($env:PLATFORM_INPUT -eq "ARM64" ) {
+            Push-AppveyorArtifact "bin\$env:CONFIGURATION\NppBplistPlugin.dll" -FileName NppBplistPlugin.dll
+        }
 
         if ($($env:APPVEYOR_REPO_TAG) -eq "true" -and $env:PLATFORMTOOLSET -eq "%PlatformToolset%") {
             if($env:PLATFORM_INPUT -eq "x64"){
@@ -53,6 +62,10 @@ after_build:
             }
             if($env:PLATFORM_INPUT -eq "Win32"){
                 $ZipFileName = "NppBplistPlugin_$($env:APPVEYOR_REPO_TAG_NAME)_x86.zip"
+                7z a $ZipFileName bin\$env:CONFIGURATION\NppBplistPlugin.dll
+            }
+            if($env:PLATFORM_INPUT -eq "ARM64"){
+                $ZipFileName = "NppBplistPlugin_$($env:APPVEYOR_REPO_TAG_NAME)_arm64.zip"
                 7z a $ZipFileName bin\$env:CONFIGURATION\NppBplistPlugin.dll
             }
         }
