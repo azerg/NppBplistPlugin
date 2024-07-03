@@ -17,7 +17,7 @@ jobs:
             build_platform: Win32
             build_platform_vcpkg: x86
           - build_configuration: RelWithDebInfo
-            build_platform: ARM64
+            build_platform: arm64
             build_platform_vcpkg: arm64
 
     steps:
