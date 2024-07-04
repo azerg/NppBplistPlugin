@@ -13,15 +13,12 @@ jobs:
           - build_configuration: RelWithDebInfo
             build_platform: x64
             build_platform_vcpkg: x64
-          - build_configuration: Debug
-            build_platform: x64
-            build_platform_vcpkg: x64
           - build_configuration: RelWithDebInfo
             build_platform: Win32
             build_platform_vcpkg: x86
-          - build_configuration: Debug
-            build_platform: Win32
-            build_platform_vcpkg: x86
+          - build_configuration: RelWithDebInfo
+            build_platform: arm64
+            build_platform_vcpkg: arm64
 
     steps:
     - name: Checkout repo

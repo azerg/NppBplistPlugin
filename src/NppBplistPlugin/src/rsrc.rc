@@ -21,10 +21,10 @@ BEGIN
       BEGIN
             VALUE "Comments", "Source code at https://github.com/azerg/NppBplistPlugin.git"
             VALUE "CompanyName", "Sergiy Azarovsky. pub@azerg.com"
-            VALUE "FileDescription", "Binary plist (bplist) plugin for Notepad++.  A free (BSD New) Plugin for doing great things"
+            VALUE "FileDescription", "Binary plist (bplist) plugin for Notepad++.  A free (BSD New) Plugin to read\write bplist files"
             VALUE "FileVersion", VERSION_STRING
             VALUE "InternalName", "NppPlistPlugin"
-            VALUE "LegalCopyright", "Copyright (C) 2022 Sergiy Azarovsky"
+            VALUE "LegalCopyright", "Copyright (C) 2024 Sergiy Azarovsky"
             VALUE "OriginalFilename", "NppBplistPlugin.dll"
             VALUE "ProductName", "Bplist plugin"
             VALUE "ProductVersion", VERSION_STRING
