@@ -1,9 +1,0 @@
-{
-  "versions": [
-    {
-      "version": "1.3.6",
-      "port-version": 2,
-      "path": "$/ports/libplist"
-    }
-  ]
-}
