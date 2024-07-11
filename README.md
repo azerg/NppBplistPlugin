@@ -1,6 +1,5 @@
 Notepad++ bplist plugin 
-- [![GitHub release](https://img.shields.io/github/release/azerg/NppBplistPlugin.svg?style=flat)](https://github.com/azerg/NppBplistPlugin/releases)
-- [![License](http://img.shields.io/badge/license-NewBSD-brightgreen.svg?style=flat-squar)](http://opensource.org/licenses/BSD-3-Clause)
+[![GitHub release](https://img.shields.io/github/release/azerg/NppBplistPlugin.svg?style=flat)](https://github.com/azerg/NppBplistPlugin/releases) [![License](http://img.shields.io/badge/license-NewBSD-brightgreen.svg?style=flat-squar)](http://opensource.org/licenses/BSD-3-Clause) [![Github All Releases](https://img.shields.io/github/downloads/azerg/NppBplistPlugin/total.svg)]()
 
 ==============
 >Check out plugin in Notepad++ plugin manager
